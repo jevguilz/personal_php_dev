@@ -35,10 +35,7 @@
                     if ($count == 0) {
                         echo "<h3>No result found</h3>";
                     } else {
-                    /*
-                        $query = "SELECT * FROM posts ORDER BY post_id";
-                        $select_all_posts_query = mysqli_query($connection, $query);
-                    */
+
 
                     while ($row = mysqli_fetch_assoc($search_query)) {
                         $post_title = $row['post_title'];
@@ -49,8 +46,13 @@
                     ?>
 
                     <h1 class="page-header">
-                        Page Heading
-                        <small>Secondary Text</small>
+                        Search Results
+                        <small>
+                            <?php  
+                                echo "(" . $count .") Found";
+                            ?>
+
+                        </small>
                     </h1>
 
                     <!-- First Blog Post -->
