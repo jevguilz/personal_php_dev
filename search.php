@@ -13,25 +13,35 @@
 
 
             <div class="col-md-8">
+                
+                 <h1 class="page-header">
+                    Search Results
+                    <small>
+                        <?php 
+
+                        // test to output the text entered into the form
+                        if (isset($_POST['submit'])) {
+                           $search = $_POST['search'];
+                           // /*echo $search = $_POST['search'];*/
+                           // use the commented code to check if the submitted text is set
+                        }
+
+                        if (!$search_query) {
+                            die("QUERY FAILED" . mysqli_error($connection));
+                        }
+                            $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' ";
+                            $search_query = mysqli_query($connection, $query);
+
+                            $count = mysqli_num_rows($search_query);
+                            if (!$count == 0) {
+                            echo "(" . $count .") Found";
+                            }
+                        ?>
+
+                    </small>
+                </h1>
                 <?php  
 
-
-                    // test to output the text entered into the form
-                    if (isset($_POST['submit'])) {
-                       $search = $_POST['search'];
-                       // /*echo $search = $_POST['search'];*/
-                       // use the commented code to check if the submitted text is set
-                    
-                    }
-
-                    $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' ";
-                    $search_query = mysqli_query($connection, $query);
-
-                    if (!$search_query) {
-                        die("QUERY FAILED" . mysqli_error($connection));
-                    }
-
-                    $count = mysqli_num_rows($search_query);
                     if ($count == 0) {
                         echo "<h3>No result found</h3>";
                     } else {
@@ -45,15 +55,7 @@
                         $post_content = $row['post_content'];
                     ?>
 
-                    <h1 class="page-header">
-                        Search Results
-                        <small>
-                            <?php  
-                                echo "(" . $count .") Found";
-                            ?>
-
-                        </small>
-                    </h1>
+                   
 
                     <!-- First Blog Post -->
                     <h2>
